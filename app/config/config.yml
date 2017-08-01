@@ -73,3 +73,11 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: "ah.gueye@laposte.net"
+        sender_name: "Ahmadou"
