@@ -2,4 +2,19 @@
 
 {% block body %}
     HOME
+
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"  class="stripe-button"
+            data-key="pk_test_QrBv8W4KoqQwGzRDWXsoCzQH"
+            data-name="Cloud-PC"
+            data-description="Abonnement annuel (€79.99 par an)"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto"
+            data-adress-="true"
+            data-panel-label="Subscribe"
+            data-zip-code="true"
+            data-currency="eur"
+            data-shippingAddress="true"
+            data-label="Abonnez-vous">
+
+    </script>
 {% endblock %}
