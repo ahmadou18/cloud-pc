@@ -1,6 +1,30 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    BLOG
+    <h2 style="text-align: center" class="page-header">BLOG</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+    {% if is_granted('ROLE_USER') %}
+
+        <th>Pseudo</th>
+        {% endif %}
+            <th>sujet</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for blogposts in blogpost %}
+        <tr>
+            <th scope="row">{{ blogposts.title }}</th>
+            {% if is_granted('ROLE_USER') %}
+            <td>{{ app.user.username }}</td>
+                {% endif %}
+            <td>{{ blogposts.description }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
 
     <a href="/blog/create"> <button>Écrire un message</button></a>
 {% endblock %}

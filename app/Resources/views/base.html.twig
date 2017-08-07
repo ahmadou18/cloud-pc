@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block stylesheets %}
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
     {% endblock %}
@@ -22,29 +23,42 @@
 
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">CloudPC</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li ><a href="/">Home</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/register">Inscription</a></li>
-                <li><a href="/login">Connexion</a></li>
+<header class="header">
+    <nav id="navigation">
+        <i onclick="openMenu()" class=" fa fa-bars fa-2x nav-open"></i>
+
+        <ul class="menu">
+            <li ><a href="/">Home</a></li>
+            <li><a href="/blog">Blog</a></li>
+            {% if is_granted('ROLE_USER') %}
+                <li><a href="/profile">{{ app.user.username }}</a></li>
                 <li><a href="/logout">Déconnexion</a></li>
+            {% else %}
+                <li><a href="/login">Connexion</a></li>
+                <li><a href="/register">Inscription</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="/admin">Administration</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div id="side-menu" class="side-nav">
+        <i onclick="closeMenu()" class=" fa fa-2x fa-close nav-close"></i>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        {% if is_granted('ROLE_USER') %}
+            <a href="/profile">{{ app.user.username }}</a>
+            <a href="/logout">Déconnexion</a>
+        {% else %}
+            <a href="/login">Connexion</a>
+            <a href="/register">Inscription</a>>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+           <a href="/admin">Administration</a>
+        {% endif %}
     </div>
-</nav>
+</header>
 
 <div class="block">
 
@@ -52,6 +66,8 @@
 
 
 </div>
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
 </body>
 </html>

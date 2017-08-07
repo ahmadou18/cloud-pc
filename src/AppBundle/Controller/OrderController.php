@@ -37,33 +37,27 @@ class OrderController extends Controller
         // Get the credit card details submitted by the form
 
         $token = $_POST['stripeToken'];
-
-
-        // Create a charge: this will charge the user's card
+        $mailcus = $_POST['stripeEmail'];
 
         try {
-
-            $charge = \Stripe\Charge::create(array(
-
-                "amount" => '0999', // Amount in cents
-
-                "currency" => "eur",
-
-                "source" => $token,
-
-                "description" => "Paiement Cloud PC",
-
-
-            ));
-
-
+            //creation du client
             $customer = \Stripe\Customer::create(array(
 
+                "description" => "Abonnement Mensuel Cloud PC",
+                "source" => $token,
+                "metadata" => array("order_id" => "aAbo"),
+                "email" => $mailcus
+            ));
 
-                "description" => "Abonnement Cloud PC",
-                "source" => "tok_mastercard",
-                "metadata" => array("order_id" => "aAbo")
+            //automatiser l'abonnement
+              \Stripe\Subscription::create(array(
+                "customer" => $customer,       //lier l'abonnement au client
 
+                  "items" => array(
+                    array(
+                        "plan" => "mAbo", //choix de l'abonnement
+                    ),
+                )
             ));
 
 
@@ -92,40 +86,31 @@ class OrderController extends Controller
     {
         \Stripe\Stripe::setApiKey("sk_test_LxWhisyWCYEl4geLtOdPTiPd");
 
-
-        // Get the credit card details submitted by the form
-
+        // Get the credit card details submitted  the form
         $token = $_POST['stripeToken'];
+        $mailcus = $_POST['stripeEmail'];
 
-
-        // Create a charge: this will charge the user's card
 
         try {
 
-            $charge = \Stripe\Charge::create(array(
-
-                "amount" => '0999', // Amount in cents
-
-                "currency" => "eur",
-
-                "source" => $token,
-
-                "description" => "Paiement Frais de port Cloud PC abo 3",
-
-
-            ));
-
+            //creer un client
 
             $customer = \Stripe\Customer::create(array(
-
-
                 "description" => "Abonnement Cloud PC Trimestriel",
-                "source" => "tok_mastercard",
-                "metadata" => array("order_id" => "tAbo")
-
+                "source" => $token,
+                "metadata" => array("order_id" => "tAbo"),
+                "email"=> $mailcus
             ));
 
-
+            //automatiser l'abonnement
+            \Stripe\Subscription::create(array(
+               "customer" => $customer, // lier l'abonnement au client
+               "items" => array(
+                   array(
+                       "plan" => "tAbo", //choix de l'abonnement
+                   ),
+               )
+           ));
             return $this->redirectToRoute("order_prepare");
 
         } catch(\Stripe\Error\Card $e) {
@@ -155,44 +140,34 @@ class OrderController extends Controller
         // Get the credit card details submitted by the form
 
         $token = $_POST['stripeToken'];
-
+        $mailcus = $_POST['stripeEmail'];
 
         // Create a charge: this will charge the user's card
 
         try {
-
-            $charge = \Stripe\Charge::create(array(
-
-                "amount" => '8999', // Amount in cents
-
-                "currency" => "eur",
-
-                "source" => $token,
-
-                "description" => "Paiement Frais de port Cloud PC abo 3",
-
-
-            ));
-
-
+            //créer le client
             $customer = \Stripe\Customer::create(array(
-
-
                 "description" => "Abonnement Cloud PC Annuel",
-                "source" => "tok_mastercard",
-                "metadata" => array("order_id" => "aAbo")
+                "source" => $token,
+                "metadata" => array("order_id" => "aAbo"),
+                "email" => $mailcus
 
+            ));
+
+            //automatiser l'abonnement
+            \Stripe\Subscription::create(array(
+                "customer" => $customer, //lier l'abonnement au client
+                "items" => array(
+                    array(
+                        "plan" => "aAbo", //type d'abonnement
+                    ),
+                )
             ));
 
 
             return $this->redirectToRoute("order_prepare");
-
         } catch(\Stripe\Error\Card $e) {
-
-
-
             return $this->redirectToRoute("order_prepare");
-
             // The card has been declined
 
         }
