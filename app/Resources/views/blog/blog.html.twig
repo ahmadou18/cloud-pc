@@ -13,14 +13,16 @@
         </tr>
         </thead>
         <tbody>
-    {% for blogposts in blogpost %}
+    {% for blogposts in blogpost  %}
+
         <tr>
             <th scope="row">{{ blogposts.title }}</th>
-            {% if is_granted('ROLE_USER') %}
-            <td>{{ app.user.username }}</td>
-                {% endif %}
+
             <td>{{ blogposts.description }}</td>
+
+            <td><a class="btn btn-default" href="/blog/details/{{ blogposts.id }}">Aller vers la page</a></td>
         </tr>
+
         {% endfor %}
         </tbody>
 

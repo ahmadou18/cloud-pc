@@ -7,9 +7,11 @@ use AppBundle\Entity\User;
 //use Doctrine\DBAL\Types\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class SiteController extends Controller
 {
@@ -43,18 +45,32 @@ class SiteController extends Controller
      */
     public function createAction(Request $request)
     {
-        $blogpost = new BlogPost;
+        $blogposts = new BlogPost;
 
-        $form = $this -> createFormBuilder($blogpost)
+        $form = $this -> createFormBuilder($blogposts)
         ->add('title', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
         ->add('description', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
         ->add('body', TextareaType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
-        ->getForm();
+        ->add('submit', SubmitType::class, array('attr' => array('class' => 'btn btn-default', 'style' => 'margin-bottom:15px')))
+            ->getForm();
 
         $form -> handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            DIE('submitted');
+            //récupérer les données
+            $title= $form['title']->getData();
+            $description = $form['description']->getData();
+            $body = $form['description']->getData();
+
+            $blogposts->setTitle($title);
+            $blogposts->setDescription($description);
+            $blogposts->setBody($body);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blogposts);
+            $em->flush();
+
+            return $this->redirectToRoute('blog_post');
         }
 
         // replace this example code with whatever you need
@@ -68,12 +84,23 @@ class SiteController extends Controller
     }
 
     /**
-     * @Route("/blog/details/{$id}", name="details_blog_post")
+     * @Route("/blog/details/{id}", name="details_blog_post")
      */
     public function DetailsAction($id)
     {
+       $blogposts = $this -> getDoctrine()
+
+
+            ->getRepository('AppBundle:BlogPost')
+            ->find($id);
+
+
+
         // replace this example code with whatever you need
-        return $this->render('blog/details.html.twig');
+        return $this->render('blog/details.html.twig',array(
+            'blogpost'=> $blogposts,
+            'userid' => $userid =  $this->getUser()->getId(),
+        ));
     }
 
     /**
@@ -81,11 +108,7 @@ class SiteController extends Controller
      */
     public function editAction($id, Request $request )
     {
-        $blogpost = new BlogPost;
-        $user = new User();
-         if ($user->getId() != $blogpost->getId()){
-             return $this->redirectToRoute('homepage');
-         }
+
         return $this->render('blog/edit.html.twig');
     }
 }

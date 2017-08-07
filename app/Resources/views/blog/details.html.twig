@@ -1,3 +1,11 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
-    DETAILS
+    <p>{{blogpost.body}}</p>
+        <h2 class="page-header">{{ blogpost.title }}</h2>
+
+    {% if userid == blogpost.id %}
+        <a class="btn btn-default" href="/blog/edit/{{ blogpost.id }}">Editer</a>
+        {% endif %}
+   <p>{{ blogpost.id }}</p>
 {% endblock %}
