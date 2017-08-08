@@ -55,13 +55,16 @@ class SiteController extends Controller
             ->getForm();
 
         $form -> handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()){
             //récupérer les données
+
             $title= $form['title']->getData();
             $description = $form['description']->getData();
-            $body = $form['description']->getData();
+            $body = $form['body']->getData();
 
+            $blogposts->setUser($user);
             $blogposts->setTitle($title);
             $blogposts->setDescription($description);
             $blogposts->setBody($body);
@@ -79,8 +82,6 @@ class SiteController extends Controller
                 'form' => $form -> createView()
             ));
 
-
-
     }
 
     /**
@@ -89,17 +90,15 @@ class SiteController extends Controller
     public function DetailsAction($id)
     {
        $blogposts = $this -> getDoctrine()
-
-
             ->getRepository('AppBundle:BlogPost')
             ->find($id);
+
 
 
 
         // replace this example code with whatever you need
         return $this->render('blog/details.html.twig',array(
             'blogpost'=> $blogposts,
-            'userid' => $userid =  $this->getUser()->getId(),
         ));
     }
 

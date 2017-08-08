@@ -2,6 +2,7 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,9 +18,22 @@ class User extends BaseUser
      */
     protected $id;
 
+    // JOINTURE BLOGPOST USER
+
+    /**
+     * @ORM\OneToMany(targetEntity="BlogPost", mappedBy="fos_user")
+     */
+    private $blogPosts;
+
+
+    public function getBlogPosts()
+    {
+        return $this->blogPosts;
+    }
+
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+        $this->blogPosts = new ArrayCollection();
     }
 }

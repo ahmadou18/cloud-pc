@@ -170,5 +170,22 @@ class BlogPost
     {
         return $this->category;
     }
+
+    //TABLE DE JOINTURE USER BLOGPOST
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="blogPosts")
+     */
+    private $user;
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
 
