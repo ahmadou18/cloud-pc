@@ -94,11 +94,12 @@ class SiteController extends Controller
             ->find($id);
 
 
+
+
         // replace this example code with whatever you need
         return $this->render('blog/details.html.twig',array(
             'blogpost'=> $blogposts,
-
-    ));
+        ));
     }
 
     /**

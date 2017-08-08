@@ -27,6 +27,8 @@
         </tbody>
 
     </table>
+    {% if is_granted('ROLE_USER') %}
 
     <a href="/blog/create"> <button>Écrire un message</button></a>
+        {% endif %}
 {% endblock %}

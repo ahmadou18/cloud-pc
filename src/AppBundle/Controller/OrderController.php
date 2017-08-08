@@ -165,7 +165,7 @@ class OrderController extends Controller
             ));
 
 
-            return $this->redirectToRoute("order_prepare");
+            return $this->redirectToRoute("homepage");
         } catch(\Stripe\Error\Card $e) {
             return $this->redirectToRoute("order_prepare");
             // The card has been declined

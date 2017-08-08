@@ -2,9 +2,9 @@
 
 {% block body %}
         <h2 class="page-header">{{ blogpost.title }}</h2>
-        <a class="btn btn-default" href="/blog/edit/{{ blogpost.id }}">Editer</a>
+    {% if blogpost.user == app.user %}
+            <a class="btn btn-default" href="/blog/edit/{{ blogpost.id }}">Editer</a>
+            {% else %}
     {% endif %}
-    <p>{{blogpost.body}}</p>
-
-
+<p>{{blogpost.body}}</p>
 {% endblock %}
