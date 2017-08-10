@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-        <h2 class="page-header">{{ blogpost.title }}</h2>
+        <h2 class="page-header text-center">{{ blogpost.title }}</h2>
     {% if blogpost.user == app.user %}
-            <a class="btn btn-default" href="/blog/edit/{{ blogpost.id }}">Editer</a>
+            <a class="btn btn-default" href="/blog/edit/{{ blogpost.id }}">Editer le post</a>
+        <hr>
             {% else %}
     {% endif %}
-<p>{{blogpost.body}}</p>
+<blockquote class=" text-center">{{blogpost.body}}</blockquote>
 {% endblock %}

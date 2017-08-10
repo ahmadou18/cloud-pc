@@ -77,10 +77,14 @@ class SiteController extends Controller
         }
 
         // replace this example code with whatever you need
-
+        if ( $this->isGranted('ROLE_USER')  ){
             return $this->render('blog/create.html.twig', array(
                 'form' => $form -> createView()
             ));
+
+        }else{
+            return $this->redirectToRoute('blog_post');
+        }
 
     }
 
@@ -89,16 +93,13 @@ class SiteController extends Controller
      */
     public function DetailsAction($id)
     {
-       $blogposts = $this -> getDoctrine()
+       $blogpost = $this -> getDoctrine()
             ->getRepository('AppBundle:BlogPost')
             ->find($id);
 
-
-
-
         // replace this example code with whatever you need
         return $this->render('blog/details.html.twig',array(
-            'blogpost'=> $blogposts,
+            'blogpost'=> $blogpost,
         ));
     }
 
@@ -107,7 +108,48 @@ class SiteController extends Controller
      */
     public function editAction($id, Request $request )
     {
+        $blogpost = $this -> getDoctrine()
+            ->getRepository('AppBundle:BlogPost')
+            ->find($id);
+    //récupérer les informations avant l'édition
+        $blogpost->setUser($blogpost-> getUser());
+        $blogpost->setTitle($blogpost->getTitle());
+        $blogpost->setDescription($blogpost->getDescription());
+        $blogpost->setBody($blogpost->getBody());
 
-        return $this->render('blog/edit.html.twig');
+        $form = $this -> createFormBuilder($blogpost)
+            ->add('title', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('description', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('body', TextareaType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('submit', SubmitType::class, array('label'=>'Editer','attr' => array('class' => 'btn btn-default', 'style' => 'margin-bottom:15px')))
+            ->getForm();
+
+        $form -> handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()){
+            //récupérer les données
+
+            $title= $form['title']->getData();
+            $description = $form['description']->getData();
+            $body = $form['body']->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $blogpost = $em->getRepository('AppBundle:BlogPost')->find($id);
+            $blogpost->setUser($user);
+            $blogpost->setTitle($title);
+            $blogpost->setDescription($description);
+            $blogpost->setBody($body);
+
+            $em->flush();
+
+            return $this->redirectToRoute('blog_post');
+        }
+
+        // replace this example code with whatever you need
+        return $this->render('blog/edit.html.twig',array(
+            'blogpost'=> $blogpost,
+            'form' => $form->createView(),
+        ));
     }
 }

@@ -1,14 +1,16 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <h2 style="text-align: center" class="page-header">BLOG</h2>
+    {% if is_granted('ROLE_USER') %}
+        <a href="/blog/create"> <button>Écrire un message</button></a>
+    {% endif %}
     <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
-    {% if is_granted('ROLE_USER') %}
 
         <th>Pseudo</th>
-        {% endif %}
+
             <th>sujet</th>
         </tr>
         </thead>
@@ -17,6 +19,8 @@
 
         <tr>
             <th scope="row">{{ blogposts.title }}</th>
+
+            <th style="text-transform: capitalize">{{ blogposts.user}}</th>
 
             <td>{{ blogposts.description }}</td>
 
@@ -27,8 +31,4 @@
         </tbody>
 
     </table>
-    {% if is_granted('ROLE_USER') %}
-
-    <a href="/blog/create"> <button>Écrire un message</button></a>
-        {% endif %}
 {% endblock %}

@@ -1,3 +1,12 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
-    EDIT
+    <h2 style="text-align: center" class="page-header">
+        Éditer un message
+    </h2>
+    <div class="container col-md-12">
+        {{form_start(form)}}
+        {{form_widget(form)}}
+        {{form_end(form)}}
+    </div>
 {% endblock %}
