@@ -1,13 +1,15 @@
-function onScroll() {
+document.querySelector('.sec').style.overflow = "hidden";
+
+/*function onScroll() {
     let distance = window.pageYOffset;
-    let target = 400;
+    let target = 200;
     if(distance > target){
-        document.querySelector('.sec').style.filter = "blur(2px)";
+        document.querySelector('.img-cloud').style.backgroundPositionx = "20" + "vw";
     }else{
-        document.querySelector('.sec').style.filter = "blur(0px)";
+        document.querySelector('.img-cloud').style.backgroundPositionx = "29.8" + "vw";
     }
 }
-document.addEventListener('scroll', onScroll);
+document.addEventListener('scroll', onScroll);*/
 
 //togglemenu
 function openMenu() {

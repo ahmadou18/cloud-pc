@@ -43,9 +43,9 @@ class OrderController extends Controller
             //creation du client
             $customer = \Stripe\Customer::create(array(
 
-                "description" => "Abonnement Mensuel Cloud PC",
+                "description" => "Abonnement Cloud-Starter",
                 "source" => $token,
-                "metadata" => array("order_id" => "aAbo"),
+                "metadata" => array("order_id" => "Cloud_s"),
                 "email" => $mailcus
             ));
 
@@ -55,13 +55,13 @@ class OrderController extends Controller
 
                   "items" => array(
                     array(
-                        "plan" => "mAbo", //choix de l'abonnement
+                        "plan" => "Cloud_s", //choix de l'abonnement
                     ),
                 )
             ));
 
 
-            return $this->redirectToRoute("order_prepare");
+            return $this->redirectToRoute("homepage");
 
         } catch(\Stripe\Error\Card $e) {
 
@@ -96,9 +96,9 @@ class OrderController extends Controller
             //creer un client
 
             $customer = \Stripe\Customer::create(array(
-                "description" => "Abonnement Cloud PC Trimestriel",
+                "description" => "Abonnement Cloud-Middle",
                 "source" => $token,
-                "metadata" => array("order_id" => "tAbo"),
+                "metadata" => array("order_id" => "Cloud_M"),
                 "email"=> $mailcus
             ));
 
@@ -107,11 +107,11 @@ class OrderController extends Controller
                "customer" => $customer, // lier l'abonnement au client
                "items" => array(
                    array(
-                       "plan" => "tAbo", //choix de l'abonnement
+                       "plan" => "Cloud_M", //choix de l'abonnement
                    ),
                )
            ));
-            return $this->redirectToRoute("order_prepare");
+            return $this->redirectToRoute("homepage");
 
         } catch(\Stripe\Error\Card $e) {
 
@@ -147,9 +147,9 @@ class OrderController extends Controller
         try {
             //créer le client
             $customer = \Stripe\Customer::create(array(
-                "description" => "Abonnement Cloud PC Annuel",
+                "description" => "Abonnement Cloud-Super",
                 "source" => $token,
-                "metadata" => array("order_id" => "aAbo"),
+                "metadata" => array("order_id" => "Cloud_Su"),
                 "email" => $mailcus
 
             ));
@@ -159,7 +159,7 @@ class OrderController extends Controller
                 "customer" => $customer, //lier l'abonnement au client
                 "items" => array(
                     array(
-                        "plan" => "aAbo", //type d'abonnement
+                        "plan" => "Cloud_Su", //type d'abonnement
                     ),
                 )
             ));

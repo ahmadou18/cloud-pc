@@ -11,25 +11,29 @@ html,body{
 /*header*/
     .header{
         width: 100%;
-        height: 50px;
+        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #0f0f0f;
+        background-color: #D81D40;
     }
 
     #navigation{
         width: 80%;
-        height: 50px;
+        height: 40px;
         display: flex;
+        justify-content: space-around;
         align-items: center;
     }
 
     #navigation .nav-open{
         color: whitesmoke;
+        position: absolute;
+        top: 5px;
+        left: 2vw;
     }
 
-    @media (min-width: 700px) {
+    @media (min-width: 1025px) {
         #navigation .nav-open{
             display: none !important;
         }
@@ -37,25 +41,39 @@ html,body{
 
     .menu{
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-start;
         align-items: center;
-        width: 100%;
+        width: 30%;
         list-style-type: none;
-        height: 50px;
+        height: 40px;
         padding: 0;
         margin: 0;
     }
 
-    @media(max-width: 700px){
+    .sub-menu{
+        padding: 0;
+        margin: 0;
+        width: 36%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+
+    }
+
+    @media(max-width: 1024px){
         .menu{
+            display: none;
+        }
+        .sub-menu{
             display: none;
         }
     }
 
     .menu li{
         width: 100px;
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
         text-align: center;
         -webkit-transition: 0.3s;
         -moz-transition: 0.3s;
@@ -65,7 +83,7 @@ html,body{
         }
 
     .menu li:hover{
-        background-color: darkred;
+        background-color: #01000A;
     }
 
     .menu li a{
@@ -75,11 +93,112 @@ html,body{
         color: whitesmoke;
     }
 
+.sub-menu li a{
+    text-decoration: none;
+    text-align: center;
+    font-size: 19px;
+    color: whitesmoke;
+}
+
+.black{
+    background-color: black;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+}
+
+
+.black2{
+    width: 110px !important;
+    background-color: black;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+}
+
+.black2 a{
+    display: inline-block;
+    -webkit-transform: skewX(12deg);
+    -moz-transform: skewX(12deg);
+    -ms-transform: skewX(12deg);
+    -o-transform: skewX(12deg);
+    transform: skewX(12deg);
+}
+
+.black a{
+    display: inline-block;
+    background-color: black;
+    -webkit-transform: skewX(12deg);
+    -moz-transform: skewX(12deg);
+    -ms-transform: skewX(12deg);
+    -o-transform: skewX(12deg);
+    transform: skewX(12deg);
+}
+
+.white{
+    background-color: white;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+}
+
+.white2{
+    width: 120px !important;
+    background-color: white;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+}
+
+
+.white2 a{
+    color: black !important;
+    display: inline-block;
+    -webkit-transform: skewX(12deg);
+    -moz-transform: skewX(12deg);
+    -ms-transform: skewX(12deg);
+    -o-transform: skewX(12deg);
+    transform: skewX(12deg);
+}
+
+.white a{
+    color: black !important;
+    display: inline-block;
+    -webkit-transform: skewX(12deg);
+    -moz-transform: skewX(12deg);
+    -ms-transform: skewX(12deg);
+    -o-transform: skewX(12deg);
+    transform: skewX(12deg);
+}
+
+.sub-menu li{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+
+    /*SIDE NAV*/
+
     .side-nav{
         height:100%;
         width: 0;
         position: fixed;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         left:0;
         background-color: #0f0f0f;
@@ -93,7 +212,7 @@ html,body{
         transition: 0.3s;
     }
 
-@media (min-width: 700px) {
+@media (min-width: 1025px) {
     .side-nav{
         display: none;
     }
@@ -102,19 +221,20 @@ html,body{
     .side-nav a{
         padding: 10px 10px 10px 30px;
         text-decoration: none;
-        font-size: 22px;
-        color: darkred;
+        font-size: 25px;
+        color: whitesmoke;
         display: flex;
         -webkit-transition: 0.3s;
         -moz-transition: 0.3s;
         -ms-transition: 0.3s;
         -o-transition: 0.3s;
         transition: 0.3s;
+        font-weight: bold;
     }
 
     .side-nav a:hover{
         color: black;
-        background-color: darkred;
+        background-color: #D81D40;
     }
 
     .side-nav .nav-close{
@@ -127,30 +247,60 @@ html,body{
 
 /*endheader*/
 .sec{
-    background-size:cover;
     width: 100%;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url("../img/maxresdefault.jpg");
+    background-color: #0f0f0f;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
 
+.img-cloud{
+    width: 70%;
+    height: 100vh;
+    background-image: url("../img/innovation-product-desktop.png");
+    background-size: cover;
+    position: absolute;
+    left: 29.8vw;
+    overflow: hidden !important;
+    -webkit-transition: all 0.3s ease-in-out  ;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-position-x: left 26vw;
+    background-repeat: no-repeat;
 }
 
 .sec h1{
-    color: darkred;
+    color: #D81D40;
     text-align: center;
+    position: absolute;
+    left: 6vw;
+    top: 39vh;
+    font-size: 4em;
+    font-weight: bold;
+    z-index: 1;
+    text-transform: uppercase;
 }
+
+@media screen and (max-width: 600px){
+    .sec h1{
+        font-size: 2em;
+        left: 0;
+    }
+}
+
 
 .sec2{
     width: 100%;
-    height:  50vh;
+    height:  55vh;
     display: flex;
+    align-items: flex-end;
+    background-color: whitesmoke;
 }
 
 @media (max-width: 700px){
@@ -178,7 +328,7 @@ html,body{
 .sec2 .text{
     width: 50%;
     height: 50vh;
-    background-color: black;
+    background-color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +348,7 @@ html,body{
 }
 
 .subscribe{
-    background-color: black;
+    background-color: whitesmoke;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -237,7 +387,7 @@ html,body{
 
 
 .price-box{
-    background: black;
+    background: white;
     color: rgb(139, 0, 0);
     list-style-type: none;
     padding: 0;
@@ -367,10 +517,54 @@ form{
 .fos_user_registration_register label{
     color: rgb(245, 245, 245);
 }
+.fos_user_registration_register div{
+    display: flex;
+    flex-direction: column;
+}
+
 
 .fos_user_registration_form{
     height: 300px;
     display:flex;
     flex-direction:column;
     justify-content: space-around;
+}
+
+#fos_user_registration_form div{
+    display: flex;
+    flex-direction: column;
+}
+
+/**/
+
+blockquote{
+    border-left: 5px solid rgb(216, 29, 64);
+}
+
+.blog .block{
+    display: none;
+}
+
+.blog a p{
+    margin: 0;
+}
+@media (max-width: 380px) {
+    .blog a p{
+        padding: 10px 0 10px 0;
+        width: 59px;
+        display: none;
+    }
+    .block{
+        display: block !important;
+    }
+
+}
+
+
+/*options*/
+
+@media screen and (max-width: 600px){
+    .btn-default{
+        font-weight: bold;
+    }
 }

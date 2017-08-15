@@ -30,15 +30,18 @@
         <ul class="menu">
             <li ><a href="/">Home</a></li>
             <li><a href="/blog">Blog</a></li>
+
+        </ul>
+        <ul class="sub-menu">
             {% if is_granted('ROLE_USER') %}
                 <li><a style="text-transform: capitalize" href="/profile">{{ app.user.username }}</a></li>
-                <li><a href="/logout">Déconnexion</a></li>
+                <li class="black2"><a href="/logout">Déconnexion</a></li>
             {% else %}
-                <li><a href="/login">Connexion</a></li>
-                <li><a href="/register">Inscription</a></li>
+                <li class="black"><a  href="/login">Connexion</a></li>
+                <li class="white"><a href="/register">Inscription</a></li>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="/admin">Administration</a></li>
+                <li class="white2"><a href="/admin">Administration</a></li>
             {% endif %}
         </ul>
     </nav>
